@@ -110,6 +110,8 @@ h2{font:900 1.75rem/1.3 var(--font-sans); margin:10px 0 0; text-wrap:balance;}
 .note-card ul{margin:0; padding-left:1.4em;}
 .note-card li{margin:6px 0; color:var(--ink-soft); font-size:.9375rem;}
 .note-card li strong{color:var(--ink);}
+.note-card.wechat{border-color:var(--seal);}
+.note-card.wechat h3{color:var(--seal-deep);}
 
 /* ---- 案例卡片 ---- */
 .case-list{display:grid; gap:26px;}
@@ -133,7 +135,7 @@ h2{font:900 1.75rem/1.3 var(--font-sans); margin:10px 0 0; text-wrap:balance;}
 .ln{display:flex; gap:8px; align-items:baseline; flex-wrap:wrap;}
 .ln-label{font:500 .75rem/1.5 var(--font-mono); color:var(--ink-faint); flex:none;}
 .ln a.video{font-weight:600;}
-.ln-hint{font:400 .75rem/1.6 var(--font-sans); color:var(--ink-faint);}
+.copyhint{font:500 .8125rem/1.6 var(--font-mono); color:var(--seal-deep); border:1px dashed var(--seal); border-radius:6px; padding:2px 10px; user-select:all; -webkit-user-select:all;}
 ul.points{margin:0; padding-left:1.3em;}
 ul.points li{margin:4px 0;}
 .data-num{font:600 .875rem/1.5 var(--font-mono); color:var(--seal-deep);}
@@ -192,7 +194,7 @@ footer{
     <p class="eyebrow">HUANG JINGYAN · CASE STUDY 2026.11</p>
     <h1>小红书 AI 唱歌案例调研</h1>
     <p class="thesis">AI 数字人虚拟唱歌 · 对口型 · 老歌改词 · IP 二创演唱 — 21 个可溯源案例。</p>
-    <p class="hero-sub">面向「AI 数字人唱歌 / 对口型」内容方向的竞品与选题调研,按三类形式整理,每个案例记录账号、链接、形式、选题思路、点赞收藏数据与可借鉴点。站内笔记链接已改为 App 深链,手机上点击直接唤起小红书打开对应笔记。</p>
+    <p class="hero-sub">面向「AI 数字人唱歌 / 对口型」内容方向的竞品与选题调研,按三类形式整理,每个案例记录账号、链接、形式、选题思路、点赞收藏数据与可借鉴点。</p>
     <div class="chips">
       <span class="chip">整理日期 2026-11-26</span>
       <span class="chip">21 个案例 · 3 类形式</span>
@@ -211,14 +213,20 @@ footer{
       <p class="eyebrow">NOTE / 数据口径与使用说明</p>
       <h2>先读:这份调研怎么看</h2>
     </div>
-    <div class="note-card">
-      <h3>数据与链接口径</h3>
+    <div class="note-card wechat">
+      <h3>📱 微信用户必读:链接怎么打开</h3>
       <ul>
-        <li><strong>整理时间:</strong>2026-11-26(链接已复核)。点赞 / 收藏 / 粉丝数据来自公开拆解文章、媒体报道与新榜等公开页,是<strong>整理时点的参考值</strong>,实际以站内实时数据为准;部分早期案例(如 2018 年银行人改词)点赞数未在公开资料中记录,标注「未核实」。</li>
-        <li><strong>「页面不见了」说明:</strong>小红书对网页版笔记链接强制校验 xsec_token,外部拿到的裸链一律跳 404。现已把所有站内笔记改为 <strong>App 深链(xhsdiscover://)</strong>,手机点击会直接唤起小红书 App 打开对应笔记,不需要登录网页版;若笔记本身已被作者删除,App 内会提示笔记不存在。</li>
-        <li><strong>电脑端怎么办:</strong>深链在电脑浏览器无效,请用各案例的「站内搜索直达」链接——登录小红书后可直接看到搜索结果;或直接在小红书 App 内搜索案例里给出的关键词。</li>
-        <li><strong>链接类型:</strong>「App 直达笔记」为小红书深链(仅手机有效);「站内搜索直达」为搜索页链接(手机唤起 App 搜索,电脑需登录);「高赞视频」多为 B 站原片(BV 链接手机唤起哔哩哔哩 App);「拆解来源」为第三方文章或媒体报道。</li>
-        <li><strong>没有编造链接:</strong>个别用户提到的形式(如「毕业版 / 职场版《当》」)在公开网页检索中未找到可核实的成品笔记,这类案例不写假链接,改为给出<strong>站内直达搜索链接</strong>与可套用的填词公式。</li>
+        <li>小红书笔记链接必须携带 <strong>xsec_token 分享参数</strong>才能打开,而该参数只有在小红书 App 内「分享 → 复制链接」才会生成;微信内置浏览器又会拦截 App 深链。因此<strong>微信里唯一能一键直达的,是 App 内分享出来的链接</strong>(本页 C3-07 的合集链接就是这种格式,可直接点开)。</li>
+        <li>其余案例采用最可靠的替代方式:每个案例给出<strong>「复制关键词」</strong>——长按复制虚线框里的词,粘贴到小红书 App 顶部搜索框即可直达该账号 / 该内容,3 秒搞定,绝不迷路。</li>
+        <li>如果想让某一篇笔记变成「微信内点击直达」,在 App 里打开那篇笔记 → 右上角分享 → 复制链接发给我,我替换进页面即可(链接带分享参数,微信内可正常唤起 App)。</li>
+      </ul>
+    </div>
+    <div class="note-card">
+      <h3>数据口径</h3>
+      <ul>
+        <li><strong>整理时间:</strong>2026-11-26。点赞 / 收藏 / 粉丝数据来自公开拆解文章、媒体报道与新榜等公开页,是<strong>整理时点的参考值</strong>,实际以站内实时数据为准;部分早期案例(如 2018 年银行人改词)点赞数未在公开资料中记录,标注「未核实」。</li>
+        <li><strong>链接类型:</strong>「直达链接」为可正常打开的合集分享链接、B 站原片(BV 链接唤起哔哩哔哩 App)、抖音 / 媒体链接;「复制关键词」为小红书 App 内搜索用词;「电脑端」搜索链接需登录小红书后使用。</li>
+        <li><strong>没有编造链接:</strong>个别用户提到的形式(如「毕业版 / 职场版《当》」)在公开网页检索中未找到可核实的成品笔记,这类案例不写假链接,改为给出搜索关键词与可套用的填词公式。</li>
         <li><strong>合规提醒:</strong>AI 改词翻唱、明星声线克隆、影视 IP 二创均涉及词曲著作权、声音权、肖像权,页面末尾附红线总结,商用前请确认授权。</li>
       </ul>
     </div>
@@ -241,10 +249,10 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd><strong>野音沉柯</strong>(小红书号 94110380394,云南昆明,24 岁设计师)。简介「严肃且正经的 AI 音乐创作」,标签:AI 填词 / AI 实操 / AI 音乐。</dd></div>
           <div class="fact"><dt>形式</dt><dd>老歌 + GPT 改词 + AI 翻唱,配灰白色系 AI 配图。代表作「假如《大海》用 AI 重新填词」「假如《童话镇》用 AI 重新填词」。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/680210ba000000001d007517">「我将贷款起诉AI歌曲魔改❗7篇笔记就涨粉9k」(手机点此唤起 App)</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E9%87%8E%E9%9F%B3%E6%B2%89%E6%9F%AF" target="_blank" rel="noopener">打开小红书搜「野音沉柯」(全部 7 篇高赞视频)</a></div>
-            <div class="ln"><span class="ln-label">公开页</span><a href="https://www.newrank.cn/profile/xiaohongshu/66a91558000000000d027980" target="_blank" rel="noopener">新榜账号公开页</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">野音沉柯</span><span class="ln-hint">粘贴到小红书 App 搜索 → 进主页看全部 7 篇高赞改词视频</span></div>
+            <div class="ln"><span class="ln-label">笔记标题</span><span>〈我将贷款起诉AI歌曲魔改❗7篇笔记就涨粉9k〉〈假如《大海》用AI重新填词〉〈假如《童话镇》用AI重新填词〉</span></div>
+            <div class="ln"><span class="ln-label">电脑端</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E9%87%8E%E9%9F%B3%E6%B2%89%E6%9F%AF" target="_blank" rel="noopener">搜索直达(需登录)</a><a href="https://www.newrank.cn/profile/xiaohongshu/66a91558000000000d027980" target="_blank" rel="noopener">新榜公开页</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>挑认知度高的热歌做「魔改」;改词时<strong>保持原曲字数与段落结构</strong>,让粉丝能无缝跟唱;配图统一走灰白电影感,视觉辨识度拉满。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">约 7 篇笔记,赞藏约 15 万</span>(拆解文章口径);新榜公开页显示收藏 5.6 万、粉丝约 9394。</dd></div>
@@ -264,10 +272,9 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>账号未具名(拆解笔记报道),与 C1-01 同为 2024 年下半年的「AI 乱改歌词」起号样本。</dd></div>
           <div class="fact"><dt>形式</dt><dd>选《美人鱼》《万物生》《童话镇》《水手》等金曲,GPT 重写歌词后 AI 翻唱,剪映套「音乐播放器」模板出片。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/671bb2fe000000001600f9e2">「厉害了!用AI乱改歌词翻唱,6篇涨粉1w!」</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/66df19b4000000001e018d57">「离大谱!AI做乱改歌词翻唱,6篇涨粉近1W!」</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E6%94%B9%E8%AF%8D%E7%BF%BB%E5%94%B1" target="_blank" rel="noopener">打开小红书搜「改词翻唱」(看同类高赞视频)</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">改词翻唱</span><span class="ln-hint">粘贴到小红书 App 搜索 → 找〈厉害了!用AI乱改歌词翻唱,6篇涨粉1w!〉等拆解笔记</span></div>
+            <div class="ln"><span class="ln-label">电脑端</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E6%94%B9%E8%AF%8D%E7%BF%BB%E5%94%B1" target="_blank" rel="noopener">搜索直达(需登录)</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>歌单只挑「全民会唱」的金曲,改词方向走反差与玩梗,不碰小众歌。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">6 篇笔记涨粉近 1W,累计赞藏约 15 万</span>(拆解文章口径)。</dd></div>
@@ -286,9 +293,9 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>账号未具名(行业自嘲向内容,站内笔记可查看)。</dd></div>
           <div class="fact"><dt>形式</dt><dd>行业定制改词:张震岳《再见》改写成唱给「预定利率 2.5% 时代」的告别曲,歌词写保险内勤的日常。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/68a203e4000000001d0104f2">「保险内勤打工人《再见2.5%》」(手机点此唤起 App)</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E4%BF%9D%E9%99%A9%20%E5%86%8D%E8%A7%81%20%E6%94%B9%E8%AF%8D" target="_blank" rel="noopener">打开小红书搜「保险 再见 改词」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">再见2.5%</span><span class="ln-hint">粘贴到小红书 App 搜索 → 找〈保险内勤打工人《再见2.5%》〉</span></div>
+            <div class="ln"><span class="ln-label">电脑端</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E4%BF%9D%E9%99%A9%20%E5%86%8D%E8%A7%81%20%E6%94%B9%E8%AF%8D" target="_blank" rel="noopener">搜索直达(需登录)</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd><strong>行业政策热点 × 打工人自嘲</strong>:预定利率下调是保险圈全民议题,把「再见」的告别情绪移植到行业转折点上,圈内人秒懂、圈外人好奇。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd>站内数据未核实(需登录查看),该方向可作<strong>选题模板</strong>而非数据标杆。</dd></div>
@@ -307,10 +314,11 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>银行员工自制内容,2018 年即已爆火,原发今日头条,账号未具名。</dd></div>
           <div class="fact"><dt>形式</dt><dd>火箭少女《卡路里》改词,把「燃烧我的卡路里」改成「燃烧我的完成率」,存款、理财、保险、基金指标全部入词,写「开门红」考核。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">原文</span><a href="https://m.toutiao.com/article/6603490858165600776/" target="_blank" rel="noopener">「银行人改编《卡路里》,来来来一起唱起来!」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">直达链接</span><a class="video" href="https://m.toutiao.com/article/6603490858165600776/" target="_blank" rel="noopener">「银行人改编《卡路里》,来来来一起唱起来!」(今日头条)</a></div>
             <div class="ln"><span class="ln-label">同题材料</span><a href="https://m.sohu.com/a/288971505_99940654/" target="_blank" rel="noopener">「感动银行人 —《沙漠骆驼》献礼开门红」</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E9%93%B6%E8%A1%8C%20%E5%8D%A1%E8%B7%AF%E9%87%8C" target="_blank" rel="noopener">打开小红书搜「银行 卡路里」(看站内新版)</a></div>
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">银行 卡路里</span><span class="ln-hint">粘贴到小红书 App 搜索 → 看站内新版</span></div>
+            <div class="ln"><span class="ln-label">电脑端</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E9%93%B6%E8%A1%8C%20%E5%8D%A1%E8%B7%AF%E9%87%8C" target="_blank" rel="noopener">搜索直达(需登录)</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>把 KPI 名词塞进洗脑副歌的记忆点位置;「开门红」是银行人的年度情绪开关,选题自带节日性。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd>早期图文时代案例,点赞数据未在公开资料留存(未核实);作为<strong>行业改词的开山模板</strong>收录。</dd></div>
@@ -329,10 +337,10 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>视频制作 / 代唱服务型账号(小红书接单笔记),账号未具名。</dd></div>
           <div class="fact"><dt>形式</dt><dd>《失恋阵线联盟》改词 + 代唱 + KTV 字幕版 + LED 背景视频,面向银行、保险、金融等行业的年会 / 周年庆定制。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/673b30b0000000000702576c">「保险银行周年庆年会节目 | 敬业阵线联盟KTV」(手机点此唤起 App)</a></div>
-            <div class="ln"><span class="ln-label">高赞视频</span><a class="video" href="https://www.bilibili.com/video/BV1mwyTBgEc6/" target="_blank" rel="noopener">《一路生花》马年歌曲改编年会合唱(B站)</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E6%95%AC%E4%B8%9A%E9%98%B5%E7%BA%BF%E8%81%94%E7%9B%9F" target="_blank" rel="noopener">打开小红书搜「敬业阵线联盟」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">直达链接</span><a class="video" href="https://www.bilibili.com/video/BV1mwyTBgEc6/" target="_blank" rel="noopener">《一路生花》马年歌曲改编年会合唱(B站)</a></div>
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">敬业阵线联盟</span><span class="ln-hint">粘贴到小红书 App 搜索 → 找〈保险银行周年庆年会节目 | 敬业阵线联盟KTV〉</span></div>
+            <div class="ln"><span class="ln-label">电脑端</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E6%95%AC%E4%B8%9A%E9%98%B5%E7%BA%BF%E8%81%94%E7%9B%9F" target="_blank" rel="noopener">搜索直达(需登录)</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>把「改词翻唱」本身做成<strong>可变现的服务产品</strong>:行业歌词定制 + 代唱 + 舞台视频一条龙,客户是企业和团队。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd>服务型笔记以咨询转化为目标,点赞数据未核实;该类目的价值在<strong>客单价</strong>而非流量。</dd></div>
@@ -351,9 +359,9 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>重庆蚂蚁消金联合平安银行重庆分行、中国人寿重庆分公司等 9 家金融机构(机构联发)。</dd></div>
           <div class="fact"><dt>形式</dt><dd>原创金融知识说唱单曲 + MV,版权永久开放,联动视频彩铃,并发动网友「填词大赛」。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">报道</span><a href="http://mp.weixin.qq.com/s?__biz=MzA4OTQ3NDkzOQ==&mid=2652255018&idx=1&sn=a516ad11d9fcbc6c73cd01a0be61cac2" target="_blank" rel="noopener">「首日播放破千万!重庆9家金融机构发布原创金融知识说唱单曲」</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E9%87%91%E8%9E%8D%E7%9F%A5%E8%AF%86%20%E8%AF%B4%E5%94%B1" target="_blank" rel="noopener">打开小红书搜「金融知识 说唱」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">直达链接</span><a class="video" href="http://mp.weixin.qq.com/s?__biz=MzA4OTQ3NDkzOQ==&mid=2652255018&idx=1&sn=a516ad11d9fcbc6c73cd01a0be61cac2" target="_blank" rel="noopener">「首日播放破千万!重庆9家金融机构发布原创金融知识说唱单曲」</a></div>
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">金融知识 说唱</span></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>把「行业科普」装进说唱;用「版权永久开放 + 填词大赛」把一次发布做成 UGC 事件。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">首日全平台播放破千万</span>(报道口径,累计达 1800 万)。</dd></div>
@@ -372,11 +380,9 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>高考版:兴化当地考生加油曲(2017,网络改编);恶搞版:填词者署名「朱敏」,吉他谱站收录。均为公开文本素材,非小红书账号。</dd></div>
           <div class="fact"><dt>形式</dt><dd>保留动力火车《当》「当……的时候」的对仗排比结构,只替换场景名词:高考版写「当试卷还很厚 / 当书桌堆满座座小楼」;恶搞版写「当钱包没有钞票的时候」。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">高考版</span><a href="https://268929.nync.com/article/835755.html" target="_blank" rel="noopener">「高考版《当》献给兴化所有高考的考生」</a></div>
-            <div class="ln"><span class="ln-label">恶搞版</span><a href="https://chord.cafe/songs/26197-%E5%BD%93-(%E6%81%B6%E6%90%9E)" target="_blank" rel="noopener">《当(恶搞)》吉他谱站收录</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E5%BD%93%20%E6%AF%95%E4%B8%9A%E7%89%88" target="_blank" rel="noopener">打开小红书搜「当 毕业版」</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E5%BD%93%20%E6%89%93%E5%B7%A5%E4%BA%BA" target="_blank" rel="noopener">打开小红书搜「当 打工人」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">直达链接</span><a class="video" href="https://268929.nync.com/article/835755.html" target="_blank" rel="noopener">「高考版《当》献给兴化所有高考的考生」</a><a href="https://chord.cafe/songs/26197-%E5%BD%93-(%E6%81%B6%E6%90%9E)" target="_blank" rel="noopener">《当(恶搞)》吉他谱站收录</a></div>
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">当 毕业版</span><span class="copyhint">当 打工人</span><span class="ln-hint">粘贴到小红书 App 搜索,看站内流传的各版本</span></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>「毕业版 / 职场版《当》」在公开网页无成品收录,主要在短视频站内流传——说明它是<strong>可被占位的高需求场景词</strong>:毕业季、入职季、辞职信三大场景都缺一首对仗工整的《当》。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd>素材模板案例,无账号数据;<strong>价值在公式</strong>而非数据。</dd></div>
@@ -407,14 +413,10 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd><strong>比奇堡乐团</strong>(小红书起家,抖音同名运营,百度百科已收录)。让海绵宝宝、派大星、章鱼哥、蟹老板组乐队翻唱热歌。</dd></div>
           <div class="fact"><dt>形式</dt><dd>RVC 音色克隆 + MidJourney 背景图 + 剪映剪辑;同一首歌多角色轮唱 / 合唱,代表作《一吻天荒》《踏山河》《离别开出花》《小美满》。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">高赞视频</span><a class="video" href="https://www.bilibili.com/video/BV1Ht42177fc/" target="_blank" rel="noopener">比奇堡翻唱合集(B站,151.5 万播放)</a></div>
-            <div class="ln"><span class="ln-label">高赞视频</span><a class="video" href="https://www.bilibili.com/video/BV1Hr421u7pT/" target="_blank" rel="noopener">比奇堡版《一吻天荒 热血版》(B站)</a></div>
-            <div class="ln"><span class="ln-label">高赞视频</span><a class="video" href="https://www.bilibili.com/video/BV1WF4m1L7s2/" target="_blank" rel="noopener">《离别开出花DJ版》(B站)</a></div>
-            <div class="ln"><span class="ln-label">高赞视频</span><a class="video" href="https://www.bilibili.com/video/BV1Ws42137mT/" target="_blank" rel="noopener">「下期想听什么歌,评论区点歌」(B站互动样本)</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E6%AF%94%E5%A5%87%E5%A0%A1%E4%B9%90%E5%9B%A2" target="_blank" rel="noopener">打开小红书搜「比奇堡乐团」</a></div>
-            <div class="ln"><span class="ln-label">拆解来源</span><a href="https://zhuanlan.zhihu.com/p/698530216" target="_blank" rel="noopener">「海绵宝宝拉上好友组成乐队,AI翻唱视频火了!一条视频百万播放」</a></div>
-            <div class="ln"><span class="ln-label">拆解来源</span><a href="https://zhuanlan.zhihu.com/p/699171193" target="_blank" rel="noopener">「后悔了,AI翻唱,竟让海绵宝宝做歌星了?!」(含抖音同款账号)</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">直达链接</span><a class="video" href="https://www.bilibili.com/video/BV1Ht42177fc/" target="_blank" rel="noopener">比奇堡翻唱合集(B站,151.5 万播放)</a><a class="video" href="https://www.bilibili.com/video/BV1Hr421u7pT/" target="_blank" rel="noopener">《一吻天荒 热血版》</a><a class="video" href="https://www.bilibili.com/video/BV1WF4m1L7s2/" target="_blank" rel="noopener">《离别开出花DJ版》</a><a class="video" href="https://www.bilibili.com/video/BV1Ws42137mT/" target="_blank" rel="noopener">点歌互动样本</a></div>
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">比奇堡乐团</span><span class="ln-hint">粘贴到小红书 App 搜索 → 看站内高赞翻唱</span></div>
+            <div class="ln"><span class="ln-label">拆解来源</span><a href="https://zhuanlan.zhihu.com/p/698530216" target="_blank" rel="noopener">「海绵宝宝拉上好友组成乐队,AI翻唱视频火了!一条视频百万播放」</a><a href="https://zhuanlan.zhihu.com/p/699171193" target="_blank" rel="noopener">「后悔了,AI翻唱,竟让海绵宝宝做歌星了?!」</a></div>
             <div class="ln"><span class="ln-label">媒体报道</span><a href="https://www.chinaz.com/ainews/6623.shtml" target="_blank" rel="noopener">「AI动漫IP翻唱音乐火爆全网 比奇堡乐团一首AI歌曲赞藏数超40万」</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>动漫 IP 自带流量 × 热门歌 × 「乐队」叙事:角色阵容固定,粉丝能认领每个角色的声线人设,评论区点歌成为固定互动。</dd></div>
@@ -435,10 +437,9 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>账号未具名(多篇拆解还原其打法);同类英语启蒙数字人账号有多个。</dd></div>
           <div class="fact"><dt>形式</dt><dd>即梦 AI 生成金发小女孩形象(全身图 + 头像图),「数字人-对口型」功能生成演唱,剪映做椭圆蒙版画中画 + 彩虹标题「每天一首英文歌」+ 双语动态歌词。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E6%AF%8F%E5%A4%A9%E4%B8%80%E9%A6%96%E8%8B%B1%E6%96%87%E6%AD%8C" target="_blank" rel="noopener">打开小红书搜「每天一首英文歌」(看站内高赞视频)</a></div>
-            <div class="ln"><span class="ln-label">拆解来源</span><a href="https://zhuanlan.zhihu.com/p/680457212" target="_blank" rel="noopener">「在小红书用AI做英语启蒙账号,6个月涨粉12.9万,私域引流3000+」</a></div>
-            <div class="ln"><span class="ln-label">教程</span><a href="http://mp.weixin.qq.com/s?__biz=MzY5MDI5MDg4MQ==&mid=2247484907&idx=1&sn=ce9de318f4bf58465c7d280c40751a59" target="_blank" rel="noopener">「宝妈粉丝收割机!用AI做外国小女孩对口型唱歌视频」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">每天一首英文歌</span><span class="ln-hint">粘贴到小红书 App 搜索 → 看站内高赞视频</span></div>
+            <div class="ln"><span class="ln-label">拆解来源</span><a href="https://zhuanlan.zhihu.com/p/680457212" target="_blank" rel="noopener">「在小红书用AI做英语启蒙账号,6个月涨粉12.9万,私域引流3000+」</a><a href="http://mp.weixin.qq.com/s?__biz=MzY5MDI5MDg4MQ==&mid=2247484907&idx=1&sn=ce9de318f4bf58465c7d280c40751a59" target="_blank" rel="noopener">「宝妈粉丝收割机!用AI做外国小女孩对口型唱歌视频」</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>锁定宝妈 × 英语启蒙人群:视觉上固定「金发小女孩」人设,内容上是磨耳朵儿歌,评论区的家长都是精准客户。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">6 个月涨粉 12.9 万</span>,私域引流 3000+;另有账号「几天涨粉 1W+」(拆解文章口径)。</dd></div>
@@ -458,12 +459,9 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>账号未具名(站内拆解笔记报道),内容为让历史人物画像开口讲段子,可延伸为唱歌、说相声。同赛道代表即 C3-02 的 @林黛玉。</dd></div>
           <div class="fact"><dt>形式</dt><dd>HeyGen / Hedra 让静态画像对口型 + 剪映剪辑,「角色 + 文案」是核心。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/66b5fe6600000000050311eb">「惊呆了!28个作品涨粉28.4万,制作巨简单!」</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/66b36124000000000d0317bf">「28个作品涨粉29万!AI历史人物流量惊人」</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/66debaf3000000000c01abbf">「历史遇上AI:揭秘27万粉丝追捧的历史账号」</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/687f4ce6000000001703164e">「普通人也能做!AI数字人IP真的没那么难」</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E5%8E%86%E5%8F%B2%E4%BA%BA%E7%89%A9%20AI" target="_blank" rel="noopener">打开小红书搜「历史人物 AI」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">历史人物 AI</span><span class="ln-hint">粘贴到小红书 App 搜索 → 找〈惊呆了!28个作品涨粉28.4万,制作巨简单!〉〈28个作品涨粉29万!AI历史人物流量惊人〉等拆解笔记</span></div>
+            <div class="ln"><span class="ln-label">电脑端</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E5%8E%86%E5%8F%B2%E4%BA%BA%E7%89%A9%20AI" target="_blank" rel="noopener">搜索直达(需登录)</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>「古人画像 + 现代嘴」的荒诞反差自带传播点;唱歌版本走同样逻辑:让画像里的人唱当下热歌。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">28 条作品涨粉 28.4 万,单条点赞 20 万</span>(站内拆解笔记口径)。</dd></div>
@@ -482,10 +480,9 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>账号未具名(拆解文章报道),被称为「乡土反差流」的代表;《茶花开了》原唱为温州泰顺林晨阳。</dd></div>
           <div class="fact"><dt>形式</dt><dd>用 Seedance 2.5 类视频模型直接生成「人物 + 演唱」MV:地域脸 + 标志穿搭 + 反差萌,不用传统虚拟偶像形象。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E8%8C%B6%E8%8A%B1%E5%BC%80%E4%BA%86" target="_blank" rel="noopener">打开小红书搜「茶花开了」(看站内高赞版本)</a></div>
-            <div class="ln"><span class="ln-label">拆解来源</span><a href="https://m.10100.com/article/152929220" target="_blank" rel="noopener">「超1500万人翻唱的AI音乐MV,我把完整教程和变现方式全拆解了」</a></div>
-            <div class="ln"><span class="ln-label">背景</span><a href="https://www.toutiao.com/article/7611018968345756194/" target="_blank" rel="noopener">「《茶花开了》爆火全网!温州小伙与外婆的故事看哭千万人」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">茶花开了</span><span class="ln-hint">粘贴到小红书 App 搜索 → 看站内高赞版本</span></div>
+            <div class="ln"><span class="ln-label">拆解来源</span><a href="https://m.10100.com/article/152929220" target="_blank" rel="noopener">「超1500万人翻唱的AI音乐MV,我把完整教程和变现方式全拆解了」</a><a href="https://www.toutiao.com/article/7611018968345756194/" target="_blank" rel="noopener">「《茶花开了》爆火全网!温州小伙与外婆的故事看哭千万人」</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>反向操作:不做精致虚拟偶像,做<strong>有岁月感的普通人脸</strong>,唱的是「回不了的家」,情绪浓度就是流量。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">累计播放 1500 万+</span>(拆解文章口径);原曲单平台话题播放超 6 亿。</dd></div>
@@ -504,9 +501,9 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>创作者范晓峰(飞书公开文档作者),完整记录 AI 数字艺人单曲 MV 的制作流程。</dd></div>
           <div class="fact"><dt>形式</dt><dd>SUNO 作曲 → 建立「去 CG 感」真人级数字人形象 → 对口型 Live 演唱 → 演唱会级多机位剪辑。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">流程文档</span><a href="https://yitanger.feishu.cn/wiki/UUkQwRGeTimBZekzHvRcV41Sn0g" target="_blank" rel="noopener">「从0到1制作一个AI数字艺人的音乐MV」(MV 内嵌于文档)</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E5%90%8C%E9%A2%91%20Resonance" target="_blank" rel="noopener">打开小红书搜「同频 Resonance」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">直达链接</span><a class="video" href="https://yitanger.feishu.cn/wiki/UUkQwRGeTimBZekzHvRcV41Sn0g" target="_blank" rel="noopener">「从0到1制作一个AI数字艺人的音乐MV」(MV 内嵌于文档)</a></div>
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">同频 Resonance</span></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>人设先行:先定义「这个数字人是谁、唱给谁听」,再选歌;MV 质感对标真人演唱会而非「AI 感」。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd>流程案例,无公开流量数据;价值在<strong>制作标准的参照系</strong>。</dd></div>
@@ -525,11 +522,9 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>B站 UP主「陈墨瞳1995」(AI 孙燕姿高频创作者);酷狗「大头针」(官方 AI 虚拟歌手);AI 方大同翻唱为网友定制内容。</dd></div>
           <div class="fact"><dt>形式</dt><dd>So-Vits-SVC 声线克隆:用明星声线翻唱其从未唱过的歌;大头针为酷狗官方运营的 AI 歌手(累计 2000+ 首翻唱)。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">报道</span><a href="https://m.36kr.com/p/3830155346355845" target="_blank" rel="noopener">36氪「当AI歌手开始刷屏:谁在上头,谁在上桌?」</a></div>
-            <div class="ln"><span class="ln-label">报道</span><a href="https://m.bjnews.com.cn/detail/168415101414657.html" target="_blank" rel="noopener">新京报「AI孙燕姿成顶流,动了谁的蛋糕?」</a></div>
-            <div class="ln"><span class="ln-label">报道</span><a href="https://static.nfnews.com/content/202506/27/c11448306.html" target="_blank" rel="noopener">「百元克隆明星声线!爆火的AI方大同翻唱或触三重侵权」</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=AI%20%E5%AD%99%E7%87%95%E5%A7%BF" target="_blank" rel="noopener">打开小红书搜「AI 孙燕姿」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">直达链接</span><a class="video" href="https://m.36kr.com/p/3830155346355845" target="_blank" rel="noopener">36氪「当AI歌手开始刷屏:谁在上头,谁在上桌?」</a><a href="https://m.bjnews.com.cn/detail/168415101414657.html" target="_blank" rel="noopener">新京报「AI孙燕姿成顶流,动了谁的蛋糕?」</a><a href="https://static.nfnews.com/content/202506/27/c11448306.html" target="_blank" rel="noopener">「百元克隆明星声线!爆火的AI方大同翻唱或触三重侵权」</a></div>
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">AI 孙燕姿</span><span class="ln-hint">粘贴到小红书 App 搜索 → 看站内翻唱</span></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>「明星声线 × 未唱过的歌」制造新鲜感;大头针走官方授权路线,证明该流派有合规经营空间。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">AI 孙燕姿《发如雪》翻唱播放 161 万→170 万+</span>(媒体口径,UP主陈墨瞳1995,2023-04);AI 方大同《珠玉》播放约 120 万;<span class="data-num">大头针月听众最高 2517 万</span>。</dd></div>
@@ -548,11 +543,9 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>Yuri(全环节 AI 主导的虚拟偶像);小红书「AI 声聊」为平台原生功能(MiniMax 语音模型,内置华妃等影视音色)。</dd></div>
           <div class="fact"><dt>形式</dt><dd>Yuri:2026-01 获全国首个虚拟偶像「身份证」,已与北面、岚图汽车合作;AI 声聊支持变声、唱聊、语C 玩梗。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/66c72ab6000000001d018c92">官方笔记「📢AI声聊,本薯的异次元生活秘籍!」(带 #AI声聊 流量活动)</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=AI%E5%A3%B0%E8%81%8A" target="_blank" rel="noopener">打开小红书搜「AI声聊」(看华妃唱聊玩法)</a></div>
-            <div class="ln"><span class="ln-label">报道</span><a href="https://tidenews.com.cn/news.html?id=3412910" target="_blank" rel="noopener">「虚拟偶像2.0登场,AI艺人能走到哪一步?」</a></div>
-            <div class="ln"><span class="ln-label">拆解</span><a href="https://zhuanlan.zhihu.com/p/718713213" target="_blank" rel="noopener">「实测小红书AI声聊,一种适合年轻人体质的发疯社交?」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">AI声聊</span><span class="ln-hint">粘贴到小红书 App 搜索 → 找官方笔记〈📢AI声聊,本薯的异次元生活秘籍!〉和华妃唱聊玩法</span></div>
+            <div class="ln"><span class="ln-label">直达链接</span><a class="video" href="https://tidenews.com.cn/news.html?id=3412910" target="_blank" rel="noopener">「虚拟偶像2.0登场,AI艺人能走到哪一步?」</a><a href="https://zhuanlan.zhihu.com/p/718713213" target="_blank" rel="noopener">「实测小红书AI声聊,一种适合年轻人体质的发疯社交?」</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>虚拟偶像 2.0 的核心是「日常感 + 互动感」:AI 艺人开账号发日常、有站姐发路透;平台把音色克隆做成原生功能,唱聊内容有流量扶持窗口。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd>Yuri 以品牌合作为主,无单条点赞口径;<strong>AI 声聊是当前平台级新功能红利</strong>。</dd></div>
@@ -583,10 +576,9 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd><strong>甄嬛传小作坊</strong>(抖音为主;小红书上有该玩法的教程与搬运生态)。</dd></div>
           <div class="fact"><dt>形式</dt><dd>把《甄嬛传》人物做成《中国好声音》式选秀现场:AI 改图做舞台与评委,音色克隆翻唱,图生视频对口型,混剪成综艺正片质感。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">App 直达</span><a class="video" href="https://www.douyin.com/search/%E7%94%84%E5%AC%9B%E4%BC%A0%E5%B0%8F%E4%BD%9C%E5%9D%8A" target="_blank" rel="noopener">打开抖音搜「甄嬛传小作坊」(高赞视频原发地,手机唤起抖音 App)</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E7%94%84%E5%87%9D%E5%A5%BD%E5%A3%B0%E9%9F%B3" target="_blank" rel="noopener">打开小红书搜「甄嬛好声音」</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/68ef187100000000040293d0">「教你用AI给安小鸟换台词」(小红书教程)</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">直达链接</span><a class="video" href="https://www.douyin.com/search/%E7%94%84%E5%AC%9B%E4%BC%A0%E5%B0%8F%E4%BD%9C%E5%9D%8A" target="_blank" rel="noopener">打开抖音搜「甄嬛传小作坊」(高赞视频原发地)</a></div>
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">甄嬛好声音</span><span class="ln-hint">粘贴到小红书 App 搜索 → 看站内教程与搬运;教程笔记〈教你用AI给安小鸟换台词〉</span></div>
             <div class="ln"><span class="ln-label">拆解来源</span><a href="http://mp.weixin.qq.com/s?__biz=MzkzMjk4MzQ2MA==&mid=2247485339&idx=1&sn=bcec1631346e6593d8b2409328d19857" target="_blank" rel="noopener">「小作坊下料就是猛!用AI制作甄嬛好声音,这流量太爆炸了!」</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>「经典剧 × 现代综艺」框架:人物有国民认知度,舞台框架提供叙事冲突(谁晋级、谁淘汰),翻唱曲目制造反差。</dd></div>
@@ -607,11 +599,9 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd><strong>@林黛玉</strong>(昵称「林怼怼」,小红书号 wuyu067,IP 属地北京,简介「我来的不巧了」),粉丝约 23 万–28.8 万;同类还有抖音 @李清照(165 万粉)。</dd></div>
           <div class="fact"><dt>形式</dt><dd>即梦 AI 生成古画风黛玉形象 + 黛玉音色配音 / 对口型,30–60 秒怼人文案;唱歌版同样走「上传音频 → 对口型」流程。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E6%9E%97%E9%BB%9B%E7%8E%89" target="_blank" rel="noopener">打开小红书搜「林黛玉」(账号主页+高赞视频)</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/66e8ea6d0000000012011bfc">「林黛玉也来做小红书了?35条内容涨粉28万!」</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/67fb3c5d000000001a004420">「AI林黛玉怼人视频全教程」</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/6762d90e000000000902fdc7">「霸气侧漏❗林黛玉AI怼人视频三步搞定!」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">林黛玉</span><span class="ln-hint">粘贴到小红书 App 搜索 → 账号主页(小红书号 wuyu067)+ 高赞怼人视频 + 教程〈AI林黛玉怼人视频全教程〉</span></div>
+            <div class="ln"><span class="ln-label">电脑端</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E6%9E%97%E9%BB%9B%E7%8E%89" target="_blank" rel="noopener">搜索直达(需登录)</a></div>
             <div class="ln"><span class="ln-label">拆解教程</span><a href="https://zhuanlan.zhihu.com/p/8754140580" target="_blank" rel="noopener">「8条笔记,30天涨粉1.8w!用AI做林黛玉怼人视频」</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>黛玉人设 = <strong>「柔弱外表 + 犀利输出」</strong>的强反差;文案用现成的「黛玉发疯文学」语料,音色直接用黛玉音色。</dd></div>
@@ -632,8 +622,8 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>创作者拆解文章公开,账号未具名;素材为 87 版《红楼梦》黛玉形象。</dd></div>
           <div class="fact"><dt>形式</dt><dd>豆包写词 → 海绵音乐作曲 → 即梦画图 → 可灵对口型,做「黛玉在录音棚唱歌」的跨时空场景。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E9%BB%9B%E7%8E%89%20%E5%94%B1%E6%AD%8C" target="_blank" rel="noopener">打开小红书搜「黛玉 唱歌」(看站内同款唱演)</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">黛玉 唱歌</span><span class="ln-hint">粘贴到小红书 App 搜索 → 看站内同款唱演</span></div>
             <div class="ln"><span class="ln-label">拆解来源</span><a href="http://mp.weixin.qq.com/s?__biz=MzI2MjA3ODk0OQ==&mid=2648113322&idx=1&sn=886bafebc2f1cf96c8dbed922c6daaa0" target="_blank" rel="noopener">「复活经典IP:AI角色唱演视频制作全流程拆解」</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>「角色 + 现代场景」的跨时空设定(黛玉在录音棚),情绪共鸣第一、技术炫技第二。</dd></div>
@@ -653,10 +643,9 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>Suno 平台创作者公开曲目(账号为 Suno 用户,非小红书账号),B站有同步视频。</dd></div>
           <div class="fact"><dt>形式</dt><dd>AI 作曲做戏腔 × 电音 / Rap 混搭;歌词用黛玉人设梗:「葬花不是作,是环保行为艺术」「药炉当气氛组,琴弦调成 autotune」。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">高赞视频</span><a class="video" href="https://www.bilibili.com/video/BV1tr421t7Yp/" target="_blank" rel="noopener">【Suno红楼梦】AI改编林黛玉判词和《枉凝眉》(B站)</a></div>
-            <div class="ln"><span class="ln-label">曲目</span><a href="https://suno.com/song/bf63eab2-2ccb-40b4-b3e0-e61b52c53928" target="_blank" rel="noopener">「Yo 这里是潇湘馆主 林黛玉」(Suno)</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E6%9E%89%E5%87%9D%E7%9C%89%20Remix" target="_blank" rel="noopener">打开小红书搜「枉凝眉 Remix」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">直达链接</span><a class="video" href="https://www.bilibili.com/video/BV1tr421t7Yp/" target="_blank" rel="noopener">【Suno红楼梦】AI改编林黛玉判词和《枉凝眉》(B站)</a><a href="https://suno.com/song/bf63eab2-2ccb-40b4-b3e0-e61b52c53928" target="_blank" rel="noopener">「Yo 这里是潇湘馆主 林黛玉」(Suno)</a></div>
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">枉凝眉 Remix</span></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>古风 × 新曲风的「错位感」是核心钩子;把角色梗写成歌词,评论区天然是梗的二次传播现场。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd>曲目公开页无点赞口径(未核实);作为<strong>国风 AI 歌曲的选题方向</strong>收录。</dd></div>
@@ -675,14 +664,10 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd><strong>B站 UP主「漫游会议室」</strong>(85 后理工男、IT 从业者,无音乐背景),2025-10 起连发西游角色歌,9 条视频涨粉 22 万、12 天约 25 万、现粉丝约 28 万+,已入驻网易云并任「AI 音乐创作大赛」评委,获《黑神话》制作人冯骥力荐。小红书 / 抖音未检索到官方账号,站内多为搬运二创。</dd></div>
           <div class="fact"><dt>形式</dt><dd>即梦 4.0 角色剧照垫图生成「录音棚戴耳机唱歌」形象 + Tunee/Suno 作曲 + 即梦数字人对口型 + 剪映多角度剪辑,「3A 音乐」(AI 作词 / 作曲 / 演唱)。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">高赞视频</span><a class="video" href="https://www.bilibili.com/video/BV1ReW1zFEtq/" target="_blank" rel="noopener">黑熊精《差一点》原片(B站,播放 490 万+,全网破千万,点赞 20 万+)</a></div>
-            <div class="ln"><span class="ln-label">高赞视频</span><a class="video" href="https://www.bilibili.com/video/BV1YGdvB4EhH/" target="_blank" rel="noopener">女儿国国王《若有前生》(B站)</a></div>
-            <div class="ln"><span class="ln-label">教程</span><a class="video" href="https://www.bilibili.com/video/BV1JFCsBkExc/" target="_blank" rel="noopener">「AI制作黑熊精《差一点》MV!爆款西游AIMV全流程」(B站)</a></div>
-            <div class="ln"><span class="ln-label">网易云</span><a href="https://music.163.com/djradio?id=1232451538" target="_blank" rel="noopener">「差一点黑熊精-漫游会议室」电台(网易云)</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E9%BB%91%E7%86%8A%E7%B2%BE" target="_blank" rel="noopener">打开小红书搜「黑熊精」(站内多为搬运二创)</a></div>
-            <div class="ln"><span class="ln-label">专访</span><a href="https://m.163.com/dy/article/KKPJAVHT05178FFG.html" target="_blank" rel="noopener">「火爆全网的《西游记》AI神曲是如何诞生的?独家专访漫游会议室」</a></div>
-            <div class="ln"><span class="ln-label">拆解来源</span><a href="http://mp.weixin.qq.com/s?__biz=MzkwMzgxMzMwMQ==&mid=2247485342&idx=1&sn=45ea7d94bef5d7aed026d1d93acf60d6" target="_blank" rel="noopener">「10条作品涨粉30万,黑熊精成了AI翻唱最大的受益者」</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">直达链接</span><a class="video" href="https://www.bilibili.com/video/BV1ReW1zFEtq/" target="_blank" rel="noopener">黑熊精《差一点》原片(B站,播放 490 万+,全网破千万,点赞 20 万+)</a><a class="video" href="https://www.bilibili.com/video/BV1YGdvB4EhH/" target="_blank" rel="noopener">女儿国国王《若有前生》</a><a class="video" href="https://www.bilibili.com/video/BV1JFCsBkExc/" target="_blank" rel="noopener">「AI制作黑熊精《差一点》MV!爆款西游AIMV全流程」教程</a><a href="https://music.163.com/djradio?id=1232451538" target="_blank" rel="noopener">网易云电台「差一点黑熊精-漫游会议室」</a></div>
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">黑熊精 差一点</span><span class="ln-hint">粘贴到小红书 App 搜索 → 站内多为搬运二创</span></div>
+            <div class="ln"><span class="ln-label">专访</span><a href="https://m.163.com/dy/article/KKPJAVHT05178FFG.html" target="_blank" rel="noopener">「火爆全网的《西游记》AI神曲是如何诞生的?独家专访漫游会议室」</a><a href="http://mp.weixin.qq.com/s?__biz=MzkwMzgxMzMwMQ==&mid=2247485342&idx=1&sn=45ea7d94bef5d7aed026d1d93acf60d6" target="_blank" rel="noopener">「10条作品涨粉30万,黑熊精成了AI翻唱最大的受益者」</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>不选主角选配角:人设空白 = 创作自由度,「黑熊精」没有既定刻板印象,想怎么唱都成立;《美猴亡》(孙悟空)播放近 1664 万并被维基百科收录。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">《差一点》B站播放 490 万+、点赞 20 万+,全网播放破千万</span>;9 条视频涨粉 22 万,后续几乎条条破百万(拆解文章口径)。</dd></div>
@@ -702,15 +687,10 @@ footer{
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd>全网现象级二创(短视频平台多账号共创),非单一账号;2020 年 B站「悟空不吃桃桃」已有雏形,2024《黑神话》助推,2026 年 8–9 月第三波 AI 爆发。人民日报评论版刊文点评。</dd></div>
           <div class="fact"><dt>形式</dt><dd>跨 IP 组合:86 版孙悟空 × 87 版林黛玉一起看演唱会、逛游乐场、合唱、黛玉跳街舞,AI 生成 + 对口型;代表梗「黛玉当年指定认错石头了」。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/6879cabf00000000100242f1">「关于圣黛CP」(2026 站内热帖)</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/687747ae000000000d026cf2">「圣黛这个cp真的很猎奇」(2026 站内热帖)</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/6833d823000000000f0330b9">「六小龄童回应"圣黛"cp」</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/6833f3190000000021000959">「孙悟空和林黛玉"圣黛"爆火」</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E5%9C%A3%E9%BB%9BCP" target="_blank" rel="noopener">打开小红书搜「圣黛CP」(看高赞二创视频)</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">圣黛CP</span><span class="ln-hint">粘贴到小红书 App 搜索 → 高赞二创;热帖〈关于圣黛CP〉〈圣黛这个cp真的很猎奇〉〈六小龄童回应"圣黛"cp〉〈孙悟空和林黛玉"圣黛"爆火〉</span></div>
             <div class="ln"><span class="ln-label">时间线梳理</span><a href="https://post.smzdm.com/p/apqvgq6x/" target="_blank" rel="noopener">「全网都在劝黛玉认错石头:圣黛热潮三波时间线与 AI 短片账本」</a></div>
-            <div class="ln"><span class="ln-label">评论</span><a href="https://3g.china.com/act/redian/13004758/49786122.html" target="_blank" rel="noopener">人民日报评「圣黛CP」走红:AI二创需守边界</a></div>
-            <div class="ln"><span class="ln-label">报道</span><a href="https://m.btime.com/item/454g6jm3klt91jocld71mq5rsmv" target="_blank" rel="noopener">「林黛玉和孙悟空谈恋爱?AI二创爆火,法律红线也亮了」</a></div>
+            <div class="ln"><span class="ln-label">评论</span><a href="https://3g.china.com/act/redian/13004758/49786122.html" target="_blank" rel="noopener">人民日报评「圣黛CP」走红:AI二创需守边界</a><a href="https://m.btime.com/item/454g6jm3klt91jocld71mq5rsmv" target="_blank" rel="noopener">「林黛玉和孙悟空谈恋爱?AI二创爆火,法律红线也亮了」</a></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>跨 IP 组合 = 1+1&gt;2 的话题度;「石头梗」(《石头记》通灵玉 × 花果山仙石)给了配对合理性,「不可能的同框」本身就是最大的钩子。</dd></div>
           <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">抖音 #圣黛CP 话题播放量超 50 亿</span>,微博阅读 12 亿+;小红书 AI 短片《林黛玉的夏天·最快乐的一天》3 天 1.8 万赞、2151 条评论(2026-09,天才导演招募计划)。<strong>注意:部分平台已下架清理相关视频</strong>,是 IP 二创的合规转折点案例。</dd></div>
@@ -723,26 +703,19 @@ footer{
 
       <article class="case">
         <div class="case-head">
-          <div class="case-top"><span class="idx">C3-07</span><span class="f-tag">国风角色演唱</span><span class="f-tag line">合集样本 · 用户提供</span></div>
+          <div class="case-top"><span class="idx">C3-07</span><span class="f-tag">国风角色演唱</span><span class="f-tag line">合集样本 · 微信内可直达</span></div>
           <h3>「古人开麦 Rap Battle」— 喆FILM 的国风角色说唱合集(9 篇)</h3>
         </div>
         <div class="facts">
           <div class="fact"><dt>账号</dt><dd><strong>喆FILM</strong>(小红书)。合集合计 9 篇,全部为 AI 国风角色 Freestyle 说唱。</dd></div>
           <div class="fact"><dt>形式</dt><dd>「古人 × 现代 Rap Battle」系列:同一段 beat 当面 diss,角色两两对决——李白 VS 杜甫、李清照 VS 苏轼、诸葛亮 VS 司马懿、项羽 VS 刘邦、孙悟空 VS 二郎神、夫差 VS 勾践;另有十古人合唱《过来人 The OGs》,12 支完整 Remix 单曲已上线各大音乐平台。</dd></div>
-          <div class="fact fact-wide"><dt>链接 · 高赞视频</dt><dd><div class="ln-list">
-            <div class="ln"><span class="ln-label">合集直达</span><a class="video" href="https://www.xiaohongshu.com/collection/item/6abfbc5b1622000000000001?xhsshare=CopyLink&appuid=5e7b4fa3000000000100160a&apptime=1795683785&share_id=21dfa5f7a19c47ae9d6fe759af0eb3ed" target="_blank" rel="noopener">打开合集「古人开麦 Rap Battle」(9 篇,网页/手机均可)</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/6ac3a2d4000000001203d0e0">项羽 VS 刘邦!Freestyle Rap Battle!(赞 1万+)</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/6ad12575000000000a01da25">《过来人 The OGs》十古人合唱(赞 1万+)</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/6abfbca1000000001500f6c9">李白VS杜甫 Freestyle说唱Battle(赞 1千+)</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/6ac10e0f000000001c00f327">李清照VS苏轼 Freestyle说唱Battle(赞 1千+)</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/6ac24fb20000000018039b58">诸葛亮VS司马懿 Freestyle说唱Battle(赞 1千+)</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/6ac9fb8e000000001403a85b">孙悟空VS二郎神 Freestyle Rap Battle!(赞 1千+)</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/6accbf08000000001a027e02">夫差VS勾践 Freestyle Rap Battle!(赞 1千+)</a></div>
-            <div class="ln"><span class="ln-label">App 直达笔记</span><a class="video" href="xhsdiscover://item/6ae5a55d0000000027014432">《过来人的12种新唱法》(赞 100+)</a></div>
-            <div class="ln"><span class="ln-label">站内搜索直达</span><a class="video" href="https://www.xiaohongshu.com/search_result?keyword=%E5%96%86FILM" target="_blank" rel="noopener">打开小红书搜「喆FILM」(账号全部作品)</a></div>
+          <div class="fact fact-wide"><dt>链接 · 打开方式</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">直达链接</span><a class="video" href="https://www.xiaohongshu.com/collection/item/6abfbc5b1622000000000001?xhsshare=CopyLink&appuid=5e7b4fa3000000000100160a&apptime=1795683785&share_id=21dfa5f7a19c47ae9d6fe759af0eb3ed" target="_blank" rel="noopener">打开合集「古人开麦 Rap Battle」(分享链接,网页 / 微信 / 手机均可直达,含全部 9 篇)</a></div>
+            <div class="ln"><span class="ln-label">📱 复制关键词</span><span class="copyhint">喆FILM</span><span class="ln-hint">粘贴到小红书 App 搜索 → 账号主页,或搜〈项羽 VS 刘邦 Freestyle〉〈过来人 The OGs〉单条笔记</span></div>
+            <div class="ln"><span class="ln-label">单条点赞</span><span>项羽VS刘邦、过来人 The OGs 各 <strong>1万+</strong>;李白VS杜甫、李清照VS苏轼、诸葛亮VS司马懿、孙悟空VS二郎神、夫差VS勾践各 <strong>1千+</strong>;《过来人的12种新唱法》100+</span></div>
           </div></dd></div>
           <div class="fact"><dt>选题思路</dt><dd>「并称组合」选题法:李杜、苏李、诸葛司马、项刘、猴二郎、吴越,全部是大众熟知的<strong>宿敌或并称</strong>,对决天然成立;统一「同一段 beat 当面 diss」的框架,系列化产出;用合集把单条爆款串成账号资产。</dd></div>
-          <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">合集 9 篇;项羽×刘邦与《过来人》各 1万+,六条 Battle 各 1千+</span>(2026-11-26 合集页实时数据,收藏数请在 App 内查看)。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">合集 9 篇;两条 1万+,六条 1千+</span>(2026-11-26 合集页实时数据,收藏数请在 App 内查看)。</dd></div>
           <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
             <li><strong>并称/宿敌对决</strong>是国风 AI 唱歌最稳的选题库:一个系列可以无限续集(苏轼×王安石、唐僧×妖怪、黛玉×宝钗);</li>
             <li>合集挂载:把 9 篇 battle 收进一个合集,进入任意一篇都能顺藤看完整个系列,提升主页转粉率;</li>
@@ -811,7 +784,7 @@ footer{
   <footer>
     <div>
       <p class="f-name">HUANG JINGYAN — XHS AI SINGING CASE STUDY · 2026.11</p>
-      <p class="f-sub">数据整理自公开拆解文章、媒体报道与新榜公开页,点赞收藏为整理时点参考值,请以站内实时数据为准。「App 直达笔记」深链仅手机有效;电脑端请用站内搜索直达并登录。案例仅作学习研究用途。</p>
+      <p class="f-sub">数据整理自公开拆解文章、媒体报道与新榜公开页,点赞收藏为整理时点参考值,请以站内实时数据为准。案例仅作学习研究用途。</p>
     </div>
     <a class="btn" href="index.html">返回作品集</a>
   </footer>
