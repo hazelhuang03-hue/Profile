@@ -1,0 +1,764 @@
+<title>小红书 AI 唱歌案例调研</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
+<style>
+/* ============================================================
+   小红书 AI 唱歌案例调研 — 沿用作品集设计系统(纸面+墨+朱砂)
+   布局:hero → 数据说明 → 三类案例 → 总结 → 片尾
+   ============================================================ */
+:root{
+  --paper:#F5F4F0;
+  --surface:#FDFCFA;
+  --ink:#1B1A17;
+  --ink-soft:#5B584F;
+  --ink-faint:#8F8B7F;
+  --line:#DEDAD0;
+  --line-strong:#C4BFB1;
+  --seal:#BC3A23;
+  --seal-deep:#9B2E19;
+  --seal-tint:#F4E2DB;
+  --seal-on:#FFF7F4;
+  --font-sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141416;
+    --surface:#1C1D20;
+    --ink:#E9E7E1;
+    --ink-soft:#AAA79D;
+    --ink-faint:#77746A;
+    --line:#303136;
+    --line-strong:#45464D;
+    --seal:#E05A3C;
+    --seal-deep:#ED7152;
+    --seal-tint:#33201B;
+    --seal-on:#1B0D08;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141416;
+  --surface:#1C1D20;
+  --ink:#E9E7E1;
+  --ink-soft:#AAA79D;
+  --ink-faint:#77746A;
+  --line:#303136;
+  --line-strong:#45464D;
+  --seal:#E05A3C;
+  --seal-deep:#ED7152;
+  --seal-tint:#33201B;
+  --seal-on:#1B0D08;
+  color-scheme:dark;
+}
+
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font:400 1rem/1.75 var(--font-sans);
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0 0 auto;
+  height:env(safe-area-inset-top,0px);
+  z-index:30;
+  background:var(--paper);
+}
+img{max-width:100%;}
+a{color:inherit;}
+a:focus-visible{outline:2px solid var(--seal); outline-offset:3px; border-radius:4px;}
+.container{max-width:1060px; margin-inline:auto;}
+
+/* ---- 播放头 ---- */
+#ptrack{position:fixed; top:env(safe-area-inset-top,0px); left:0; right:0; height:2px; background:var(--line); z-index:39;}
+#pfill{position:fixed; top:env(safe-area-inset-top,0px); left:0; height:2px; width:0; background:var(--seal); z-index:40;}
+#phead{position:fixed; top:calc(env(safe-area-inset-top,0px) + 1px); left:0; width:9px; height:9px; background:var(--seal); transform:translate(-50%,-50%) rotate(45deg); z-index:40;}
+
+/* ---- Hero ---- */
+.hero{padding-block:clamp(56px,10vh,96px) 40px;}
+.eyebrow{font:500 .75rem/1.6 var(--font-mono); letter-spacing:.14em; color:var(--ink-faint); margin:0;}
+h1{
+  font:900 clamp(2.5rem,7vw,4.5rem)/1.12 var(--font-sans);
+  margin:16px 0 18px;
+  letter-spacing:.02em;
+  text-wrap:balance;
+}
+.thesis{font:500 clamp(1.05rem,2vw,1.25rem)/1.6 var(--font-sans); margin:0 0 10px;}
+.hero-sub{color:var(--ink-soft); max-width:42em; margin:0 0 28px;}
+.chips{display:flex; gap:10px; flex-wrap:wrap;}
+.chips + .chips{margin-top:12px;}
+.chip{font:500 .8125rem/1 var(--font-mono); color:var(--ink-soft); border:1px solid var(--line-strong); border-radius:999px; padding:8px 14px;}
+a.chip{text-decoration:none;}
+a.chip:hover{color:var(--seal-deep); border-color:var(--seal);}
+
+/* ---- 章节 ---- */
+section{margin-top:84px; scroll-margin-top:24px;}
+.sec-head{margin-bottom:34px;}
+h2{font:900 1.75rem/1.3 var(--font-sans); margin:10px 0 0; text-wrap:balance;}
+.sec-note{color:var(--ink-soft); max-width:44em; margin:14px 0 0; font-size:.9375rem;}
+
+/* ---- 数据说明 ---- */
+.note-card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:26px 30px;}
+.note-card h3{font:700 1.0625rem/1.5 var(--font-sans); margin:0 0 10px;}
+.note-card ul{margin:0; padding-left:1.4em;}
+.note-card li{margin:6px 0; color:var(--ink-soft); font-size:.9375rem;}
+.note-card li strong{color:var(--ink);}
+
+/* ---- 案例卡片 ---- */
+.case-list{display:grid; gap:26px;}
+.case{background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden; transition:transform .25s ease, box-shadow .25s ease;}
+.case:hover{transform:translateY(-3px); box-shadow:0 18px 40px -26px rgba(27,26,23,.30);}
+.case-head{padding:22px 30px 14px; border-bottom:1px solid var(--line);}
+.case-top{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:8px;}
+.idx{font:600 .8125rem/1 var(--font-mono); color:var(--ink-faint); letter-spacing:.1em;}
+.f-tag{font:500 .75rem/1.5 var(--font-mono); color:var(--seal-deep); background:var(--seal-tint); padding:4px 10px; border-radius:4px; letter-spacing:.04em;}
+.f-tag.line{border:1px solid var(--line-strong); background:transparent; color:var(--ink-soft);}
+.case-head h3{font:900 1.25rem/1.4 var(--font-sans); margin:0; text-wrap:balance;}
+.facts{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); padding:8px 30px 26px; column-gap:36px;}
+.fact{padding:12px 0; border-top:1px solid var(--line);}
+.fact-wide{grid-column:1 / -1;}
+.fact dt{font:600 .75rem/1.6 var(--font-mono); letter-spacing:.12em; color:var(--ink-faint); margin:0 0 4px;}
+.fact dd{margin:0; color:var(--ink-soft); font-size:.9375rem;}
+.fact dd strong{color:var(--ink); font-weight:700;}
+.fact dd a{color:var(--seal-deep); text-decoration:none; word-break:break-all;}
+.fact dd a:hover{text-decoration:underline;}
+.kw{display:inline-block; font:500 .75rem/1.6 var(--font-mono); color:var(--ink-faint); border:1px dashed var(--line-strong); border-radius:4px; padding:1px 8px; margin-top:6px;}
+.ln-list{display:flex; flex-direction:column; gap:4px;}
+.ln{display:flex; gap:8px; align-items:baseline; flex-wrap:wrap;}
+.ln-label{font:500 .75rem/1.5 var(--font-mono); color:var(--ink-faint); flex:none;}
+ul.points{margin:0; padding-left:1.3em;}
+ul.points li{margin:4px 0;}
+.data-num{font:600 .875rem/1.5 var(--font-mono); color:var(--seal-deep);}
+@media (max-width:759px){
+  .facts{grid-template-columns:minmax(0,1fr); padding:4px 20px 22px;}
+  .case-head{padding:18px 20px 12px;}
+}
+
+/* ---- 总结 ---- */
+.sum-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:26px;}
+.sum-card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:26px 30px;}
+.sum-card h3{font:900 1.125rem/1.4 var(--font-sans); margin:0 0 12px;}
+.sum-card ol,.sum-card ul{margin:0; padding-left:1.4em;}
+.sum-card li{margin:7px 0; color:var(--ink-soft); font-size:.9375rem;}
+.sum-card li strong{color:var(--ink);}
+.warn-card{border-color:var(--seal);}
+.warn-card h3{color:var(--seal-deep);}
+@media (max-width:759px){
+  .sum-grid{grid-template-columns:minmax(0,1fr);}
+  .sum-card{padding:20px;}
+}
+
+/* ---- 片尾 ---- */
+footer{
+  margin-top:96px;
+  background:var(--ink); color:var(--paper);
+  border-radius:16px;
+  padding:40px 32px 36px;
+  display:flex; flex-wrap:wrap; gap:18px 32px;
+  align-items:center; justify-content:space-between;
+}
+.f-name{font:600 1rem/1.5 var(--font-mono); letter-spacing:.12em; margin:0;}
+.f-sub{font:400 .8125rem/1.6 var(--font-sans); color:var(--paper); opacity:.62; max-width:40em; margin:0;}
+.btn{
+  display:inline-flex; align-items:center; gap:9px;
+  background:var(--seal); color:var(--seal-on);
+  border-radius:8px; padding:11px 22px;
+  font:600 .9375rem/1.2 var(--font-sans); text-decoration:none;
+  transition:background .2s;
+}
+.btn:hover{background:var(--seal-deep);}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important; animation:none !important;}
+  html{scroll-behavior:auto;}
+}
+</style>
+
+<div id="ptrack" aria-hidden="true"></div>
+<div id="pfill" aria-hidden="true"></div>
+<div id="phead" aria-hidden="true"></div>
+
+<div class="container">
+
+  <header class="hero" id="top">
+    <p class="eyebrow">HUANG JINGYAN · CASE STUDY 2026.11</p>
+    <h1>小红书 AI 唱歌案例调研</h1>
+    <p class="thesis">AI 数字人虚拟唱歌 · 对口型 · 老歌改词 · IP 二创演唱 — 20 个可溯源案例。</p>
+    <p class="hero-sub">面向「AI 数字人唱歌 / 对口型」内容方向的竞品与选题调研,按三类形式整理,每个案例记录账号、链接、形式、选题思路、点赞收藏数据与可借鉴点。</p>
+    <div class="chips">
+      <span class="chip">整理日期 2026-11-26</span>
+      <span class="chip">20 个案例 · 3 类形式</span>
+      <a class="chip" href="#cat1">01 老歌改词翻唱</a>
+      <a class="chip" href="#cat2">02 AI 虚拟人唱歌</a>
+      <a class="chip" href="#cat3">03 经典 IP · 红楼角色演唱</a>
+      <a class="chip" href="#sum">总结 · 选题公式与红线</a>
+    </div>
+    <div class="chips">
+      <a class="chip" href="index.html">← 返回作品集首页</a>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">NOTE / 数据口径与使用说明</p>
+      <h2>先读:这份调研怎么看</h2>
+    </div>
+    <div class="note-card">
+      <h3>数据与链接口径</h3>
+      <ul>
+        <li><strong>整理时间:</strong>2026-11-26。点赞 / 收藏 / 粉丝数据来自公开拆解文章、媒体报道与新榜等公开页,是<strong>整理时点的参考值</strong>,实际以站内实时数据为准;部分早期案例(如 2018 年银行人改词)点赞数未在公开资料中记录,标注「未核实」。</li>
+        <li><strong>链接类型:</strong>「站内笔记」为小红书站内链接(需登录查看);「拆解来源」为第三方案例拆解文章或媒体报道。小红书的笔记页对外部抓取有限制,部分链接为搜索引擎收录的原始地址。</li>
+        <li><strong>没有编造链接:</strong>个别用户提到的形式(如「毕业版 / 职场版《当》」)在公开网页检索中未找到可核实的成品笔记,这类案例不写假链接,改为给出<strong>站内检索关键词</strong>与可套用的填词公式。</li>
+        <li><strong>合规提醒:</strong>AI 改词翻唱、明星声线克隆、影视 IP 二创均涉及词曲著作权、声音权、肖像权,页面末尾附红线总结,商用前请确认授权。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= 类 1:老歌改词翻唱 ================= -->
+  <section id="cat1">
+    <div class="sec-head">
+      <p class="eyebrow">CASE 01 / 老歌改词翻唱 · 行业定制 · 场景化填词</p>
+      <h2>01 老歌改词翻唱</h2>
+      <p class="sec-note">「热歌自带流量 × 场景化重新填词」。两条路线:面向行业的定制宣传(保险版、银行版、年会接单),以及面向大众的玩梗式改词账号。核心公式是<strong>曲不变、词换场景</strong>,让熟悉的旋律说出圈内人的话。</p>
+    </div>
+    <div class="case-list">
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C1-01</span><span class="f-tag">AI 改词翻唱</span><span class="f-tag line">起号最快样本</span></div>
+          <h3>野音沉柯 — AI 填词魔改热歌,7 篇笔记起号</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd><strong>野音沉柯</strong>(小红书,ID 94110380394)。简介「严肃且正经的 AI 音乐创作」,标签:AI 填词 / AI 实操 / AI 音乐。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>老歌 + GPT 改词 + AI 翻唱,配灰白色系 AI 配图,代表作《海》《童话镇》《大海》改词版。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">站内笔记</span><a href="https://www.xiaohongshu.com/discovery/item/680210ba000000001d007517" target="_blank" rel="noopener">「我将贷款起诉AI歌曲魔改❗7篇笔记就涨粉9k」</a></div>
+            <div class="ln"><span class="ln-label">公开页</span><a href="https://www.newrank.cn/profile/xiaohongshu/66a91558000000000d027980" target="_blank" rel="noopener">新榜账号公开页</a></div>
+            <div class="ln"><span class="ln-label">检索词</span><span class="kw">野音沉柯 · AI填词 · 改词翻唱</span></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>挑认知度高的热歌做「魔改」;改词时<strong>保持原曲字数与段落结构</strong>,让粉丝能无缝跟唱;配图统一走灰白电影感,视觉辨识度拉满。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">约 7 篇笔记,赞藏约 15 万</span>(拆解文章口径);新榜公开页显示收藏 5.6 万。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li><strong>「字数不变、结构不变」</strong>是改词翻唱的第一原则,保跟唱体验;</li>
+            <li>固定视觉模板(灰白色系),降低单条制作成本,形成账号辨识度;</li>
+            <li>变现:蒲公英商单 + 定制改词翻唱接单 + 会员内容。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C1-02</span><span class="f-tag">AI 改词翻唱</span><span class="f-tag line">同赛道对照</span></div>
+          <h3>乱改歌词翻唱账号 — 6 篇涨粉 1W 的同期案例</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>账号未具名(拆解笔记报道),与 C1-01 同为 2024 年下半年的「AI 乱改歌词」起号样本。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>选《美人鱼》《万物生》《童话镇》《水手》等金曲,GPT 重写歌词后 AI 翻唱,剪映套「音乐播放器」模板出片。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">站内拆解笔记</span><a href="https://www.xiaohongshu.com/discovery/item/671bb2fe000000001600f9e2" target="_blank" rel="noopener">「厉害了!用AI乱改歌词翻唱,6篇涨粉1w!」</a></div>
+            <div class="ln"><span class="ln-label">站内拆解笔记</span><a href="https://www.xiaohongshu.com/discovery/item/66df19b4000000001e018d57" target="_blank" rel="noopener">「离大谱!AI做乱改歌词翻唱,6篇涨粉近1W!」</a></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>歌单只挑「全民会唱」的金曲,改词方向走反差与玩梗,不碰小众歌。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">6 篇笔记涨粉近 1W,累计赞藏约 15 万</span>(拆解文章口径)。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>起号模板可复用:热歌 + AI 封面 + 改词 + AI 翻唱 + 播放器模板,单条制作成本极低;</li>
+            <li>同类账号同期出现、数据接近,说明<strong>玩法红利期适合快速复制起量</strong>。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C1-03</span><span class="f-tag">行业定制改词</span><span class="f-tag line">保险版</span></div>
+          <h3>保险内勤打工人《再见2.5%》— 张震岳《再见》保险版</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>账号未具名(行业自嘲向内容,站内笔记可查看)。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>行业定制改词:张震岳《再见》改写成唱给「预定利率 2.5% 时代」的告别曲,歌词写保险内勤的日常。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">站内笔记</span><a href="https://www.xiaohongshu.com/discovery/item/68a203e4000000001d0104f2" target="_blank" rel="noopener">「保险内勤打工人《再见2.5%》」</a></div>
+            <div class="ln"><span class="ln-label">检索词</span><span class="kw">保险 改词 · 再见2.5% · 保险内勤</span></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd><strong>行业政策热点 × 打工人自嘲</strong>:预定利率下调是保险圈全民议题,把「再见」的告别情绪移植到行业转折点上,圈内人秒懂、圈外人好奇。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd>站内数据未核实(需登录查看),该方向可作<strong>选题模板</strong>而非数据标杆。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>行业版改词公式:<strong>行业热点事件 + 圈内黑话 + 全民神曲</strong>,先在圈内传播再破圈;</li>
+            <li>「保险版」的本质是给从业者做情绪出口,评论区天然是同行认领现场。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C1-04</span><span class="f-tag">行业定制改词</span><span class="f-tag line">银行版</span></div>
+          <h3>银行人《燃烧我的完成率》—《卡路里》银行开门红版</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>银行员工自制内容,2018 年即已爆火,原发今日头条,账号未具名。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>火箭少女《卡路里》改词,把「燃烧我的卡路里」改成「燃烧我的完成率」,存款、理财、保险、基金指标全部入词,写「开门红」考核。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">原文</span><a href="https://m.toutiao.com/article/6603490858165600776/" target="_blank" rel="noopener">「银行人改编《卡路里》,来来来一起唱起来!」</a></div>
+            <div class="ln"><span class="ln-label">同题材料</span><a href="https://m.sohu.com/a/288971505_99940654/" target="_blank" rel="noopener">「感动银行人 —《沙漠骆驼》献礼开门红」</a></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>把 KPI 名词塞进洗脑副歌的记忆点位置;「开门红」是银行人的年度情绪开关,选题自带节日性。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd>早期图文时代案例,点赞数据未在公开资料留存(未核实);作为<strong>行业改词的开山模板</strong>收录。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>行业指标名词要放在<strong>副歌最后一个字</strong>的位置,形成最强行军记忆点;</li>
+            <li>2018 年的公式至今有效,说明行业改词是「长期需求型」选题,不是短期风口。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C1-05</span><span class="f-tag">行业定制改词</span><span class="f-tag line">接单服务型</span></div>
+          <h3>《敬业阵线联盟》—「任何行业歌词均可改」的年会定制</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>视频制作 / 代唱服务型账号(小红书接单笔记),账号未具名。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>《失恋阵线联盟》改词 + 代唱 + KTV 字幕版 + LED 背景视频,面向银行、保险、金融等行业的年会 / 周年庆定制。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">站内笔记</span><a href="https://www.xiaohongshu.com/discovery/item/673b30b0000000000702576c" target="_blank" rel="noopener">「保险银行周年庆年会节目 | 敬业阵线联盟KTV」</a></div>
+            <div class="ln"><span class="ln-label">参考视频</span><a href="https://www.snm0516.aisee.tv/zh-Hans/video/BV1mwyTBgEc6/" target="_blank" rel="noopener">《一路生花》马年歌曲改编年会合唱(B站)</a></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>把「改词翻唱」本身做成<strong>可变现的服务产品</strong>:行业歌词定制 + 代唱 + 舞台视频一条龙,客户是企业和团队。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd>服务型笔记以咨询转化为目标,点赞数据未核实;该类目的价值在<strong>客单价</strong>而非流量。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>C 端玩梗涨粉、B 端定制收钱,同一条技能两条变现路径;</li>
+            <li>「任何行业歌词均可改」是一句可以直接抄的产品话术。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C1-06</span><span class="f-tag">行业定制改词</span><span class="f-tag line">机构官方版</span></div>
+          <h3>重庆 9 家金融机构金融知识说唱单曲 — 官方出品的合规路线</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>重庆蚂蚁消金联合平安银行重庆分行、中国人寿重庆分公司等 9 家金融机构(机构联发)。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>原创金融知识说唱单曲 + MV,版权永久开放,联动视频彩铃,并发动网友「填词大赛」。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">报道</span><a href="http://mp.weixin.qq.com/s?__biz=MzA4OTQ3NDkzOQ==&mid=2652255018&idx=1&sn=a516ad11d9fcbc6c73cd01a0be61cac2" target="_blank" rel="noopener">「首日播放破千万!重庆9家金融机构发布原创金融知识说唱单曲」</a></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>把「行业科普」装进说唱;用「版权永久开放 + 填词大赛」把一次发布做成 UGC 事件。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">首日全平台播放破千万</span>(报道口径,累计达 1800 万)。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>行业定制词曲的<strong>合规姿势</strong>:官方出品、原创词曲,避开翻唱授权问题;</li>
+            <li>「开放版权 + 填词大赛」是低成本撬动二创 UGC 的标准打法。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C1-07</span><span class="f-tag">场景化填词模板</span><span class="f-tag line">《当》系列</span></div>
+          <h3>《当》场景化改词 — 高考版 / 恶搞版已成型的填词公式</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>高考版:兴化当地考生加油曲(2017,网络改编);恶搞版:填词者署名「朱敏」,吉他谱站收录。均为公开文本素材,非小红书账号。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>保留动力火车《当》「当……的时候」的对仗排比结构,只替换场景名词:高考版写「当试卷还很厚 / 当书桌堆满座座小楼」;恶搞版写「当钱包没有钞票的时候」。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">高考版</span><a href="https://268929.nync.com/article/835755.html" target="_blank" rel="noopener">「高考版《当》献给兴化所有高考的考生」</a></div>
+            <div class="ln"><span class="ln-label">恶搞版</span><a href="https://chord.cafe/songs/26197-%E5%BD%93-(%E6%81%B6%E6%90%9E)" target="_blank" rel="noopener">《当(恶搞)》吉他谱站收录</a></div>
+            <div class="ln"><span class="ln-label">检索词</span><span class="kw">当 毕业版 · 当 打工人 · 当 职场版(站内检索,成品笔记未在公开网页收录)</span></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>「毕业版 / 职场版《当》」在公开网页无成品收录,主要在短视频站内流传——说明它是<strong>可被占位的高需求场景词</strong>:毕业季、入职季、辞职信三大场景都缺一首对仗工整的《当》。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd>素材模板案例,无账号数据;<strong>价值在公式</strong>而非数据。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>填词公式:主歌保留「当 A 的时候 / 当 B……」排比,副歌保留「红尘作伴」旋律框架、替换语境名词(如「让我们毕业作伴活得潇潇洒洒」);</li>
+            <li>《当》的原词结构(对仗 + 上邪化用)天生适合场景化,是目前三类中<strong>最值得做的选题空白</strong>。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ================= 类 2:AI 虚拟人唱歌 ================= -->
+  <section id="cat2">
+    <div class="sec-head">
+      <p class="eyebrow">CASE 02 / AI 虚拟人唱歌 · 数字人对口型 · 演唱 MV</p>
+      <h2>02 AI 虚拟人唱歌</h2>
+      <p class="sec-note">从「卡通 IP 翻唱」到「真人感数字人 MV」,核心资产是<strong>一张固定的脸 + 一条稳定的声线</strong>。工具链已成熟:即梦 / 可灵对口型、RVC / X Studio 音色、Suno / 海绵音乐作曲。</p>
+    </div>
+    <div class="case-list">
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C2-01</span><span class="f-tag">IP 虚拟形象演唱</span><span class="f-tag line">最强样本</span></div>
+          <h3>比奇堡乐团 — 海绵宝宝全员组乐队翻唱</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd><strong>比奇堡乐团</strong>(小红书起家,抖音同名运营,百度百科已收录)。让海绵宝宝、派大星、章鱼哥、蟹老板组乐队翻唱热歌。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>RVC 音色克隆 + MidJourney 背景图 + 剪映剪辑;同一首歌多角色轮唱 / 合唱,代表作《一吻天荒》《踏山河》《离别开出花》《小美满》。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">拆解来源</span><a href="https://zhuanlan.zhihu.com/p/698530216" target="_blank" rel="noopener">「海绵宝宝拉上好友组成乐队,AI翻唱视频火了!一条视频百万播放」</a></div>
+            <div class="ln"><span class="ln-label">媒体报道</span><a href="https://www.chinaz.com/ainews/6623.shtml" target="_blank" rel="noopener">「AI动漫IP翻唱音乐火爆全网 比奇堡乐团一首AI歌曲赞藏数超40万」</a></div>
+            <div class="ln"><span class="ln-label">百科</span><a href="https://baike.baidu.com/item/%E6%AF%94%E5%A5%87%E5%A0%A1%E4%B9%90%E5%9B%A2" target="_blank" rel="noopener">百度百科「比奇堡乐团」词条</a></div>
+            <div class="ln"><span class="ln-label">检索词</span><span class="kw">比奇堡乐团 · 海绵宝宝 翻唱</span></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>动漫 IP 自带流量 × 热门歌 × 「乐队」叙事:角色阵容固定,粉丝能认领每个角色的声线人设,评论区点歌成为固定互动。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">小红书赞藏 40 万+</span>(2024-03 凤凰网报道);抖音约 80 作品、粉丝约 10 万、获赞约 50 万(百科 2025-04);单条视频百万播放。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li><strong>固定角色阵容 = 乐队的叙事感</strong>,粉丝追的是「全员合体」;</li>
+            <li>「下期想听什么歌,评论区告诉我」是转粉率最高的互动话术;</li>
+            <li>一条内容多平台分发(小红书/抖音/B站),放大 IP 复用价值。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C2-02</span><span class="f-tag">数字人对口型</span><span class="f-tag line">宝妈赛道</span></div>
+          <h3>「每天一首英文歌」— AI 外国小女孩对口型唱英语儿歌</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>账号未具名(多篇拆解还原其打法);同类英语启蒙数字人账号有多个。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>即梦 AI 生成金发小女孩形象(全身图 + 头像图),「数字人-对口型」功能生成演唱,剪映做椭圆蒙版画中画 + 彩虹标题「每天一首英文歌」+ 双语动态歌词。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">拆解来源</span><a href="https://zhuanlan.zhihu.com/p/680457212" target="_blank" rel="noopener">「在小红书用AI做英语启蒙账号,6个月涨粉12.9万,私域引流3000+」</a></div>
+            <div class="ln"><span class="ln-label">教程</span><a href="http://mp.weixin.qq.com/s?__biz=MzY5MDI5MDg4MQ==&mid=2247484907&idx=1&sn=ce9de318f4bf58465c7d280c40751a59" target="_blank" rel="noopener">「宝妈粉丝收割机!用AI做外国小女孩对口型唱歌视频」</a></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>锁定宝妈 × 英语启蒙人群:视觉上固定「金发小女孩」人设,内容上是磨耳朵儿歌,评论区的家长都是精准客户。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">6 个月涨粉 12.9 万</span>,私域引流 3000+;另有账号「几天涨粉 1W+」(拆解文章口径)。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li><strong>虚拟形象一旦起量绝不变脸</strong>——粉丝认的是这张脸;</li>
+            <li>音频控制在 15 秒内,对口型生成成功率最高,超长分段拼接;</li>
+            <li>变现:绘本 / 磨耳朵课程橱窗带货 + 私域资料包(单套 19.9–49.9 元)。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C2-03</span><span class="f-tag">数字人对口型</span><span class="f-tag line">画像开口流</span></div>
+          <h3>历史人物画像开口 — 28 条作品涨粉 28.4 万</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>账号未具名(站内拆解笔记报道),内容为让历史人物画像开口讲段子,可延伸为唱歌、说相声。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>HeyGen / Hedra 让静态画像对口型 + 剪映剪辑,「角色 + 文案」是核心。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">站内拆解笔记</span><a href="https://www.xiaohongshu.com/discovery/item/66b5fe6600000000050311eb" target="_blank" rel="noopener">「惊呆了!28个作品涨粉28.4万,制作巨简单!」</a></div>
+            <div class="ln"><span class="ln-label">同类教程</span><a href="https://www.xiaohongshu.com/discovery/item/687f4ce6000000001703164e" target="_blank" rel="noopener">「普通人也能做!AI数字人IP真的没那么难」</a></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>「古人画像 + 现代嘴」的荒诞反差自带传播点;唱歌版本走同样逻辑:让画像里的人唱当下热歌。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">28 条作品涨粉 28.4 万,单条点赞 20 万</span>(站内拆解笔记口径)。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>画像开口类是「IP 二创唱歌」的最轻量入口,不需要 3D 建模;</li>
+            <li>商单、矩阵运营均可承接,是数字人唱歌赛道的基础玩法。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C2-04</span><span class="f-tag">真人感演唱 MV</span><span class="f-tag line">2025 新趋势</span></div>
+          <h3>「放羊大叔」《茶花开了 该回家了》— 乡土反差流演唱 MV</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>账号未具名(拆解文章报道),被称为「乡土反差流」的代表。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>用 Seedance 2.5 类视频模型直接生成「人物 + 演唱」MV:地域脸 + 标志穿搭 + 反差萌,不用传统虚拟偶像形象。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">拆解来源</span><a href="https://m.10100.com/article/152929220" target="_blank" rel="noopener">「超1500万人翻唱的AI音乐MV,我把完整教程和变现方式全拆解了」</a></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>反向操作:不做精致虚拟偶像,做<strong>有岁月感的普通人脸</strong>,唱的是「回不了的家」,情绪浓度就是流量。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">累计播放 1500 万+</span>(拆解文章口径)。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>「真人感虚拟歌手」是 2025 年的方向切换:从卡通 IP 转向现实人设;</li>
+            <li>选歌公式:场景歌(回家 / 打工 / 乡愁)+ 反差人设 = 完播率双保险。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C2-05</span><span class="f-tag">AI 数字艺人 MV</span><span class="f-tag line">完整流程案例</span></div>
+          <h3>范晓峰《同频 Resonance》— 从 0 到 1 的 AI 数字艺人 MV</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>创作者范晓峰(飞书公开文档作者),完整记录 AI 数字艺人单曲 MV 的制作流程。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>SUNO 作曲 → 建立「去 CG 感」真人级数字人形象 → 对口型 Live 演唱 → 演唱会级多机位剪辑。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">流程文档</span><a href="https://yitanger.feishu.cn/wiki/UUkQwRGeTimBZekzHvRcV41Sn0g" target="_blank" rel="noopener">「从0到1制作一个AI数字艺人的音乐MV」</a></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>人设先行:先定义「这个数字人是谁、唱给谁听」,再选歌;MV 质感对标真人演唱会而非「AI 感」。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd>流程案例,无公开流量数据;价值在<strong>制作标准的参照系</strong>。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>「去 CG 感」清单:肤质、光影、微表情、服装褶皱,决定数字人高级感;</li>
+            <li>平台细节:小红书封面比例 3:4,与抖音 / 视频号不同,单条要单独出图。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C2-06</span><span class="f-tag">明星声线克隆</span><span class="f-tag line">流量天花板</span></div>
+          <h3>AI 孙燕姿 / AI 王菲 / AI 方大同 — 声线克隆流派的三个里程碑</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>B站 UP主「陈墨瞳1995」(AI 孙燕姿高频创作者);酷狗「大头针」(官方 AI 虚拟歌手);AI 方大同翻唱为网友定制内容。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>So-Vits-SVC 声线克隆:用明星声线翻唱其从未唱过的歌;大头针为酷狗官方运营的 AI 歌手(累计 2000+ 首翻唱)。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">报道</span><a href="https://m.36kr.com/p/3830155346355845" target="_blank" rel="noopener">36氪「当AI歌手开始刷屏:谁在上头,谁在上桌?」</a></div>
+            <div class="ln"><span class="ln-label">报道</span><a href="https://static.nfnews.com/content/202506/27/c11448306.html" target="_blank" rel="noopener">「百元克隆明星声线!爆火的AI方大同翻唱或触三重侵权」</a></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>「明星声线 × 未唱过的歌」制造新鲜感;大头针走官方授权路线,证明该流派有合规经营空间。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">AI 孙燕姿《发如雪》翻唱播放 360 万+</span>(B站);AI 方大同《珠玉》播放约 120 万;<span class="data-num">大头针月听众最高 2517 万</span>。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>明星声线是流量杠杆,但个人创作者碰即涉险:2024-04 北京互联网法院首例 AI 声音侵权案判赔 25 万;</li>
+            <li>安全姿势:做<strong>原创虚拟歌手声线</strong>(大头针模式),或取得授权后再商用。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C2-07</span><span class="f-tag">虚拟偶像 2.0</span><span class="f-tag line">平台红利</span></div>
+          <h3>Yuri 虚拟偶像 + 小红书「AI 声聊」— 生态里的新入口</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>Yuri(全环节 AI 主导的虚拟偶像);小红书「AI 声聊」为平台原生功能(MiniMax 语音模型,内置华妃等影视音色)。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>Yuri:2026-01 获全国首个虚拟偶像「身份证」,已与北面、岚图汽车合作;AI 声聊支持变声、唱聊、语C 玩梗。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">报道</span><a href="https://tidenews.com.cn/news.html?id=3412910" target="_blank" rel="noopener">「虚拟偶像2.0登场,AI艺人能走到哪一步?」</a></div>
+            <div class="ln"><span class="ln-label">拆解</span><a href="https://zhuanlan.zhihu.com/p/718713213" target="_blank" rel="noopener">「实测小红书AI声聊,一种适合年轻人体质的发疯社交?」</a></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>虚拟偶像 2.0 的核心是「日常感 + 互动感」:AI 艺人开账号发日常、有站姐发路透;平台把音色克隆做成原生功能,唱聊内容有流量扶持窗口。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd>Yuri 以品牌合作为主,无单条点赞口径;<strong>AI 声聊是当前平台级新功能红利</strong>。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>用平台原生 AI 音色(华妃等)做唱聊内容,合规性由平台背书;</li>
+            <li>「虚拟人账号的日常感运营」(路透、翻牌评论)是下一阶段的差异化方向。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ================= 类 3:经典 IP / 红楼角色演唱 ================= -->
+  <section id="cat3">
+    <div class="sec-head">
+      <p class="eyebrow">CASE 03 / 经典 IP · 红楼角色演唱 · 国风二创</p>
+      <h2>03 经典 IP · 红楼角色演唱</h2>
+      <p class="sec-note">黛玉、甄嬛、西游群像……经典 IP 角色演唱的流量逻辑是「人设反差 + 国民认知度」:角色开口唱现代歌,一句话就能讲清梗。同时这也是<strong>合规风险最高</strong>的一类,平台已开始清理。</p>
+    </div>
+    <div class="case-list">
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C3-01</span><span class="f-tag">影视 IP 二创演唱</span><span class="f-tag line">综艺混剪流</span></div>
+          <h3>甄嬛传小作坊 —「甄嬛好声音」系列</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd><strong>甄嬛传小作坊</strong>(抖音为主;小红书上有该玩法的教程与搬运生态)。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>把《甄嬛传》人物做成《中国好声音》式选秀现场:AI 改图做舞台与评委,音色克隆翻唱,图生视频对口型,混剪成综艺正片质感。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">拆解来源</span><a href="http://mp.weixin.qq.com/s?__biz=MzkzMjk4MzQ2MA==&mid=2247485339&idx=1&sn=bcec1631346e6593d8b2409328d19857" target="_blank" rel="noopener">「小作坊下料就是猛!用AI制作甄嬛好声音,这流量太爆炸了!」</a></div>
+            <div class="ln"><span class="ln-label">教程(小红书)</span><a href="https://www.xiaohongshu.com/discovery/item/68ef187100000000040293d0" target="_blank" rel="noopener">「教你用AI给安小鸟换台词」</a></div>
+            <div class="ln"><span class="ln-label">检索词</span><span class="kw">甄嬛好声音 · 甄嬛传 翻唱 · 大清好声音</span></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>「经典剧 × 现代综艺」框架:人物有国民认知度,舞台框架提供叙事冲突(谁晋级、谁淘汰),翻唱曲目制造反差。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">43 个作品涨粉 18.8 万,单条视频点赞约 64 万</span>(拆解文章口径);同类甄嬛魔改大号 110+ 视频、47 万粉、总获赞 2164 万。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>「剧 + 综艺」框架可迁移:红楼版好声音、西游版选秀,框架不变只换 IP;</li>
+            <li>3 分钟左右的完播设计,综艺节奏感是第一位的;</li>
+            <li>风险:广电已发《管理提示(AI魔改)》并清理此类视频,做之前先读合规部分。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C3-02</span><span class="f-tag">红楼角色账号</span><span class="f-tag line">黛玉人设流</span></div>
+          <h3>小红书「林黛玉」AI 账号 — 怼人文学起家,唱歌是延伸形式</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>小红书站内「林黛玉」AI 角色账号(多个),以黛玉怼人 / 发疯文学为主,唱歌为已验证的延伸方向。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>即梦 AI 生成古画风黛玉形象 + 黛玉音色配音 / 对口型;唱歌版同样走「上传音频 → 对口型」流程。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">站内拆解笔记</span><a href="https://www.xiaohongshu.com/discovery/item/66e8ea6d0000000012011bfc" target="_blank" rel="noopener">「林黛玉也来做小红书了?35条内容涨粉28万!」</a></div>
+            <div class="ln"><span class="ln-label">拆解教程</span><a href="https://zhuanlan.zhihu.com/p/8754140580" target="_blank" rel="noopener">「8条笔记,30天涨粉1.8w!用AI做林黛玉怼人视频」</a></div>
+            <div class="ln"><span class="ln-label">检索词</span><span class="kw">黛玉 唱歌 · 黛玉 AI翻唱 · 红楼梦 数字人</span></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>黛玉人设 = <strong>「柔弱外表 + 犀利输出」</strong>的强反差;文案用现成的「黛玉发疯文学」语料,音色直接用黛玉音色。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">35 条内容涨粉 28 万,单条最高获赞 19 万</span>,视频商单报价约 1.2 万元 / 条;另一账号 8 条笔记 30 天涨粉 1.8 万。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>红楼角色做唱歌,<strong>人设先行</strong>:先让粉丝认领「黛玉」,再让黛玉开口唱,转化率远高于直接发翻唱;</li>
+            <li>变现标杆:千粉即开蒲公英商单,小号一条 300–400 元,头部 1.2 万 / 条;</li>
+            <li>注意:避免把古人肖像修复成真人照片,用古画风 / 动漫风更安全。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C3-03</span><span class="f-tag">红楼角色唱演</span><span class="f-tag line">全流程模板</span></div>
+          <h3>《黛玉的现代 EMO 日记》— 87 版黛玉「在录音棚」唱歌</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>创作者拆解文章公开,账号未具名;素材为 87 版《红楼梦》黛玉形象。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>豆包写词 → 海绵音乐作曲 → 即梦画图 → 可灵对口型,做「黛玉在录音棚唱歌」的跨时空场景。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">拆解来源</span><a href="http://mp.weixin.qq.com/s?__biz=MzI2MjA3ODk0OQ==&mid=2648113322&idx=1&sn=886bafebc2f1cf96c8dbed922c6daaa0" target="_blank" rel="noopener">「复活经典IP:AI角色唱演视频制作全流程拆解」</a></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>「角色 + 现代场景」的跨时空设定(黛玉在录音棚),情绪共鸣第一、技术炫技第二。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd>流程案例,无公开流量数据;价值在<strong>红楼角色唱演的现成工具链</strong>。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>四件套工具链(写词→作曲→画图→对口型)可直接复用做红楼 / 国风角色唱演;</li>
+            <li>87 版素材有著作权与肖像权风险,商用前需确认授权,或改用原创国风形象。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C3-04</span><span class="f-tag">国风 AI 歌曲</span><span class="f-tag line">戏腔×电音</span></div>
+          <h3>Suno 红楼 Remix —《Yo 这里是潇湘馆主 林黛玉》《枉凝眉 Remix》</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>Suno 平台创作者公开曲目(账号为 Suno 用户,非小红书账号),B站有同步视频。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>AI 作曲做戏腔 × 电音 / Rap 混搭;歌词用黛玉人设梗:「葬花不是作,是环保行为艺术」「药炉当气氛组,琴弦调成 autotune」。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">曲目</span><a href="https://suno.com/song/bf63eab2-2ccb-40b4-b3e0-e61b52c53928" target="_blank" rel="noopener">「Yo 这里是潇湘馆主 林黛玉」(Suno)</a></div>
+            <div class="ln"><span class="ln-label">检索词</span><span class="kw">枉凝眉 Remix · 红楼梦 AI 歌曲</span></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>古风 × 新曲风的「错位感」是核心钩子;把角色梗写成歌词,评论区天然是梗的二次传播现场。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd>曲目公开页无点赞口径(未核实);作为<strong>国风 AI 歌曲的选题方向</strong>收录。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>红楼角色歌词的写法:<strong>用现代词解构古典梗</strong>(葬花→环保行为艺术),一句一个记忆点;</li>
+            <li>戏腔 × 电音是国风 AI 歌曲里验证过的流量配方。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C3-05</span><span class="f-tag">国风 IP 演唱</span><span class="f-tag line">配角反差流</span></div>
+          <h3>黑熊精 — 西游 AI 音乐,单条播放 500 万</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>B站西游 AI 音乐创作者(账号未具名,公众号拆解报道),「黑熊精」为其代表系列。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>Suno 作曲 + 可灵数字人演唱,选<strong>边缘配角</strong>黑熊精,配老年牧童嗓音,唱「岁月的味道」。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">拆解来源</span><a href="http://mp.weixin.qq.com/s?__biz=MzAwODY2MDk0Nw==&mid=2647710458&idx=1&sn=09fd1d2a7e379f7b4a112d66ccc2d538" target="_blank" rel="noopener">「黑熊精单条视频播放量超500万,老年牧童唱出了岁月的味道」</a></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>不选主角选配角:人设空白 = 创作自由度,「黑熊精」没有既定刻板印象,想怎么唱都成立。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd><span class="data-num">单条视频播放 500 万+</span>(拆解文章口径);是 B站西游 AI 音乐赛道的成熟打法,小红书同步适用。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>配角策略可迁移到红楼:<strong>不做黛玉做紫鹃 / 刘姥姥</strong>,竞争小、惊喜大;</li>
+            <li>「嗓音与形象的反差」(牧童嗓唱岁月)是完播率利器。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <div class="case-top"><span class="idx">C3-06</span><span class="f-tag">跨 IP 二创</span><span class="f-tag line">红线样本</span></div>
+          <h3>「圣黛 CP」孙悟空 × 林黛玉 — 现象级跨 IP 二创与合规转折点</h3>
+        </div>
+        <div class="facts">
+          <div class="fact"><dt>账号</dt><dd>全网现象级二创(短视频平台多账号共创),非单一账号;人民日报、烟台晚报等均有评论。</dd></div>
+          <div class="fact"><dt>形式</dt><dd>跨 IP 组合:孙悟空 × 林黛玉一起看演唱会、逛游乐场、合唱、黛玉跳街舞,AI 生成 + 对口型。</dd></div>
+          <div class="fact fact-wide"><dt>链接</dt><dd><div class="ln-list">
+            <div class="ln"><span class="ln-label">评论</span><a href="https://3g.china.com/act/redian/13004758/49786122.html" target="_blank" rel="noopener">人民日报评「圣黛CP」走红:AI二创需守边界</a></div>
+            <div class="ln"><span class="ln-label">报道</span><a href="https://m.btime.com/item/454g6jm3klt91jocld71mq5rsmv" target="_blank" rel="noopener">「林黛玉和孙悟空谈恋爱?AI二创爆火,法律红线也亮了」</a></div>
+          </div></dd></div>
+          <div class="fact"><dt>选题思路</dt><dd>跨 IP 组合 = 1+1&gt;2 的话题度;「不可能的同框」本身就是最大的钩子。</dd></div>
+          <div class="fact"><dt>点赞 / 收藏</dt><dd>现象级传播(无单账号口径);<strong>注意:多平台已下架清理相关视频</strong>,是 IP 二创的合规转折点案例。</dd></div>
+          <div class="fact fact-wide"><dt>可借鉴的点</dt><dd><ul class="points">
+            <li>跨 IP 的创意价值极高,但 87 版画面、演员肖像(陈晓旭)受法律保护,三重风险(著作权 / 肖像权 / 名誉权);</li>
+            <li>人民日报定调「想象有空间,解构有边界」——安全路线:原创国风形象 + 原创词曲 + 只借角色名字不借影视素材。</li>
+          </ul></dd></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ================= 总结 ================= -->
+  <section id="sum">
+    <div class="sec-head">
+      <p class="eyebrow">SUMMARY / 选题公式 · 数据规律 · 合规红线</p>
+      <h2>总结:可复用的选题公式与红线</h2>
+    </div>
+    <div class="sum-grid">
+
+      <div class="sum-card">
+        <h3>四条选题公式</h3>
+        <ol>
+          <li><strong>热歌 × 场景化填词</strong>:行业热点(利率下调)+ 圈内黑话 + 全民神曲,圈内传播再破圈(保险版《再见》、银行版《卡路里》)。</li>
+          <li><strong>固定虚拟形象 × 日更</strong>:一张不变的脸 + 一条稳定声线,粉丝认脸追更(比奇堡乐团、英文歌小女孩)。</li>
+          <li><strong>经典 IP 角色 × 现代场景 / 新曲风</strong>:黛玉在录音棚、甄嬛上综艺、戏腔混电音,一句话能讲清的梗。</li>
+          <li><strong>人设反差</strong>:柔弱黛玉输出犀利、卡通角色唱摇滚、乡土大叔唱深情,反差即完播率。</li>
+        </ol>
+      </div>
+
+      <div class="sum-card">
+        <h3>数据规律(从 20 个案例里看到的)</h3>
+        <ul>
+          <li>起号速度快:改词 / 翻唱类 6–7 篇笔记可见涨粉(9k–1W),30–40 天可到 2–7 万粉。</li>
+          <li>单条爆款靠概率,账号靠日更:单条播放从几百到百万波动大,持续更新比押宝单条更稳。</li>
+          <li>转粉率最高的互动:评论区点歌、角色人设回复。</li>
+          <li>变现三件套:蒲公英商单(小号 300–400 元 / 条,头部 1.2 万 / 条)+ 定制改词翻唱 + 带货 / 私域资料包。</li>
+        </ul>
+      </div>
+
+      <div class="sum-card">
+        <h3>工具链(按环节选一个就够)</h3>
+        <ul>
+          <li>写词:GPT / 豆包 / DeepSeek(保持原曲字数结构)。</li>
+          <li>作曲 / 翻唱:Suno、海绵音乐、X Studio、RVC 音色转换。</li>
+          <li>形象:即梦 / 可灵 / MidJourney(建议固定形象 + 三视图保一致性)。</li>
+          <li>对口型:即梦数字人(15 秒内成功率最高)、可灵、HeyGen、Hedra。</li>
+          <li>剪辑:剪映(椭圆蒙版 + 动态歌词模板)。</li>
+        </ul>
+      </div>
+
+      <div class="sum-card warn-card">
+        <h3>合规红线(动手前必读)</h3>
+        <ul>
+          <li><strong>词曲著作权:</strong>改词翻唱涉及改编权,商用需授权;优先选多次被翻唱过的歌,简介标注「翻唱仅供娱乐,侵权立删」只是兜底不是豁免。</li>
+          <li><strong>声音权:</strong>2024-04 北京互联网法院首例 AI 声音侵权案判赔 25 万;明星声线克隆(孙燕姿 / 王菲 / 方大同模式)个人勿商用。</li>
+          <li><strong>肖像权:</strong>87 版画面、陈晓旭等演员肖像受《民法典》保护,「复活」类内容风险最高。</li>
+          <li><strong>平台治理:</strong>广电《管理提示(AI魔改)》已清理影视 IP 魔改视频;《人工智能生成合成内容标识办法》2025-09-01 施行,AI 合成内容须显著标识。</li>
+          <li><strong>安全路线:</strong>原创虚拟形象 + 原创词曲 + 只借角色名字 / 人设,不借影视素材与真人声线。</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <p class="f-name">HUANG JINGYAN — XHS AI SINGING CASE STUDY · 2026.11</p>
+      <p class="f-sub">数据整理自公开拆解文章、媒体报道与新榜公开页,点赞收藏为整理时点参考值,请以站内实时数据为准。案例仅作学习研究用途。</p>
+    </div>
+    <a class="btn" href="index.html">返回作品集</a>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var pfill=document.getElementById('pfill'),
+      phead=document.getElementById('phead');
+  function onScroll(){
+    var doc=document.documentElement;
+    var max=doc.scrollHeight-window.innerHeight;
+    var p=max>0?(window.scrollY||doc.scrollTop)/max*100:0;
+    pfill.style.width=p+'%';
+    phead.style.left=p+'%';
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  onScroll();
+})();
+</script>
